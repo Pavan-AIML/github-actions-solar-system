@@ -39,7 +39,7 @@ jobs:
         name: code-coverage
         runs-on: ubuntu-latest
         steps:
-        - continue-on-error: true
+       
     # job_id: code-coverage
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -49,6 +49,7 @@ jobs:
             node-version: 18
         - name: installing nodejs Dependencies
           run: npm install
+        - continue-on-error: true
         - name: run code coverage 
           run: npm run coverage
         
