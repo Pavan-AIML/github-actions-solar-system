@@ -71,7 +71,7 @@ jobs:
         name: docker
         job_id: docker
         runs_on: ubuntu-latest
-        needs: [ Unit Testing, code-coverage]
+        needs: [ unit-testing, code-coverage]
         steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
