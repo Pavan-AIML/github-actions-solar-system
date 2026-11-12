@@ -14,6 +14,8 @@ jobs:
     unit-testing:
         name: Unit Testing
         runs-on: ubuntu-latest
+        container:
+          image: 'node:20'
         steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
@@ -25,10 +27,10 @@ jobs:
             # key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
             key: ${{ runner.os }}-node-modules-${{ hashFiles('package-lock.json') }}
 
-        - name: Setup NodeJS Version
-          uses: actions/setup-node@v4
-          with:
-            node-version: 20
+        # - name: Setup NodeJS Version
+        #   uses: actions/setup-node@v4
+        #   with:
+        #     node-version: 20
     
         - name: Install Dependencies
           run: npm install
