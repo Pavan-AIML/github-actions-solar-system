@@ -17,6 +17,13 @@ jobs:
         steps:
         - name: Checkout Repository
           uses: actions/checkout@v4
+        - name: Cache NPM dependencies
+          uses: actions/cache@v4
+          with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ~/.npm
+          # key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runnerOS }}-node-modules-${{ hashFiles(''package-lock.json'') }}
 
         - name: Setup NodeJS Version
           uses: actions/setup-node@v4
@@ -33,18 +40,12 @@ jobs:
           if: always()
           uses: actions/upload-artifact@v4
           with:
-            path: ~/.npm
-            key: '${{ runner.os }}-node-modules-${{ hashFiles(''package-lock.json'') }}'
-          with:
             name: Mocha-Test-Result
             path: test-results.xml
     code-coverage:
         name: code-coverage
         runs-on: ubuntu-latest
         steps:
-
-        -name: Cache NPM dependencies
-        uses: actions/cache@v4
        
     # job_id: code-coverage
         - name: Checkout Repository
