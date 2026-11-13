@@ -85,12 +85,14 @@ jobs:
             registry: ghcr.io
             username: ${{ github.repository_owner }}
             password: ${{ secrets.GITHUB_TOKEN }}
+        - name: Set lowercase owner
+          run: echo "OWNER_LC = ${GITHUB_REPOSITORY_OWNER,,}" >> "$GITHUB_ENV"
         - name: Docker Container image building and Pushing  
           uses: docker/build-push-action@v6
           with:
             context: .
             push: true
-            tags: 'ghcr.io/${{ github.repository_owner }}/solar-system:${{ github.sha }}'
+            tags: 'ghcr.io/${{ env.OWNER_LC }}/solar-system:${{ github.sha }}'
     
     dev-deploy:
         runs-on: ubuntu-latest
