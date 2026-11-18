@@ -68,6 +68,11 @@ jobs:
             name: Code-Coverage-Result
             path: coverage
             retention-days: 5
+    integration-testing:
+      needs: dev-deploy
+      uses: ./.github/workflows/reusable-workflow.yml
+      with:
+        ingress-url: ${{ needs.dev-deploy.outputs.APP_INGRESS_URL }}
 
     docker:
         permissions:
